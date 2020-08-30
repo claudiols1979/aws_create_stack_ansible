@@ -1,0 +1,18 @@
+- hosts: localhost
+  become: yes
+  tasks:
+    - name: create a environment stack
+      cloudformation:
+        stack_name: "GitFlowEnv"
+        state: present
+        region: us-west-2
+        disable_rollback: true
+        template_url: https://awsdevops2025.s3-us-west-2.amazonaws.com/aws_cf_templates/aws-devops-workshop-environment-setup.template       
+
+    - name: create a pipeline stack
+      cloudformation:
+        stack_name: "GitFlowCiCd"
+        state: present
+        region: us-west-2
+        disable_rollback: true
+        template_url: https://awsdevops2025.s3-us-west-2.amazonaws.com/aws_cf_templates/aws-pipeline-commit-build-deploy.template
